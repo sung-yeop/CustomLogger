@@ -22,7 +22,8 @@ export class Logger {
     };
   }
 
-  static log({ message, logLevel }: LogProps) {
+  static log({ message, logLevel = "INFO" }: LogProps) {
+    if (!this.isDev) return;
     const timestamp = new Date().toISOString();
     const callerInfo = Logger.getCallerInfo();
 
