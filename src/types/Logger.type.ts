@@ -1,6 +1,4 @@
-export interface LogLevelType {
-  logLevel?: "WARN" | "ERROR" | "INFO";
-}
+export type LogLevelType = "WARN" | "ERROR" | "INFO";
 
 export type LogProps = LogLevelType & {
   message: any;
