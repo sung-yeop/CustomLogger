@@ -1,5 +1,8 @@
 {
   "name": "@sung-yeop/custom-logger",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "1.0.0",
   "description": "Custom development logger utility for TypeScript/JavaScript projects",
   "main": "dist/index.js",
