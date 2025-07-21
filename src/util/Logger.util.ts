@@ -1,4 +1,4 @@
-import { LogLevelType } from "../types/Logger.type";
+import { ConditionalLogType, LogLevelType } from "../types/Logger.type";
 
 /**
  * Custom Logger utility class for development logging
@@ -12,12 +12,11 @@ export class Logger {
    * @returns Object containing file location or null if stack is unavailable
    */
   private static getCallerInfo() {
-    const stack = new Error().stack; // Get stack trace
+    const stack = new Error().stack;
     if (!stack) return null;
     const caller = stack.split("\n");
 
-    // Find the first stack entry that's not from this logger
-    let targetCaller = caller[3]; // Default fallback
+    let targetCaller = caller[3];
     for (let i = 3; i < caller.length; i++) {
       if (
         !caller[i].includes("Logger.util") &&
@@ -28,7 +27,6 @@ export class Logger {
       }
     }
 
-    // Remove line numbers and column info from stack trace
     const parserLineArr = targetCaller.replace(/:\d+:\d+\)/, "").split("/");
     const fileLocation =
       parserLineArr.length > 2
@@ -62,13 +60,21 @@ export class Logger {
   }
 
   /**
+   * Validates if logging is enabled based on environment
+   * Only allows logging in development environment
+   * @returns Early return if not in development mode
+   */
+  private static validateEnv() {
+    if (!this.isDev) return;
+  }
+
+  /**
    * Main logging method with level-based output
    * @param message - The message to log
    * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
    */
   static log(message: any, logLevel: LogLevelType = "INFO") {
-    // Skip logging in production environment
-    if (!this.isDev) return;
+    Logger.validateEnv();
 
     // Route to appropriate console method based on log level
     switch (logLevel) {
@@ -82,5 +88,11 @@ export class Logger {
         this.logFormatting(message, "log");
         break;
     }
+  }
+
+  static when({ condition, message, logLevel = "INFO" }: ConditionalLogType) {
+    Logger.validateEnv();
+    if (!condition) return;
+    Logger.log(message, logLevel);
   }
 }
