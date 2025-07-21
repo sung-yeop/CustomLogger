@@ -28,16 +28,12 @@ export class Logger {
 
     if (logLevel === "INFO") {
       console.log("==============================");
-      console.log(
-        "파일 위치:",
-        callerInfo?.fileLocation,
-        "\n",
-        "Message:",
-        message,
-        "\n",
-        "TimeStamp:",
-        timestamp
-      );
+      console.log("1. 파일 위치: ", callerInfo?.fileLocation);
+      console.log("------------------------------");
+      console.log("2. Message : ", message);
+      console.log("------------------------------");
+      console.log("3. TimeStamp : ", timestamp);
+      console.log("==============================");
     }
   }
 }
