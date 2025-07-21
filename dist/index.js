@@ -15,8 +15,17 @@ class Logger {
         if (!stack)
             return null;
         const caller = stack.split("\n");
+        // Find the first stack entry that's not from this logger
+        let targetCaller = caller[3]; // Default fallback
+        for (let i = 3; i < caller.length; i++) {
+            if (!caller[i].includes("Logger.util") &&
+                !caller[i].includes("dist/index")) {
+                targetCaller = caller[i];
+                break;
+            }
+        }
         // Remove line numbers and column info from stack trace
-        const parserLineArr = caller[3].replace(/:\d+:\d+\)/, "").split("/");
+        const parserLineArr = targetCaller.replace(/:\d+:\d+\)/, "").split("/");
         const fileLocation = parserLineArr.length > 2
             ? parserLineArr[parserLineArr.length - 2].concat("/", parserLineArr[parserLineArr.length - 1])
             : parserLineArr[parserLineArr.length - 1];
