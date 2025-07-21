@@ -1,12 +1,13 @@
 {
-  "name": "custom-logger",
+  "name": "@sung-yeop/custom-logger",
   "version": "1.0.0",
-  "description": "React/Next.js console logging package",
+  "description": "Custom development logger utility for TypeScript/JavaScript projects",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "build": "rollup -c",
@@ -16,14 +17,24 @@
   },
   "type": "module",
   "keywords": [
-    "react",
-    "nextjs",
+    "logger",
     "logging",
     "console",
-    "typescript"
+    "development",
+    "typescript",
+    "javascript",
+    "debug"
   ],
-  "author": "",
+  "author": "Your Name <your.email@example.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sung-yeop/CustomLogger.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sung-yeop/CustomLogger/issues"
+  },
+  "homepage": "https://github.com/sung-yeop/CustomLogger#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
