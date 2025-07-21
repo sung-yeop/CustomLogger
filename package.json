@@ -11,8 +11,10 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
+    "test": "npx tsx src/test.ts",
     "prepublishOnly": "npm run build"
   },
+  "type": "module",
   "keywords": [
     "react",
     "nextjs",
