@@ -90,6 +90,12 @@ export class Logger {
     }
   }
 
+  /**
+   * Conditional logging method - only logs when condition is true
+   * @param condition - Boolean condition to check before logging
+   * @param message - The message to log if condition is true
+   * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
+   */
   static when({ condition, message, logLevel = "INFO" }: ConditionalLogType) {
     Logger.validateEnv();
     if (!condition) return;
