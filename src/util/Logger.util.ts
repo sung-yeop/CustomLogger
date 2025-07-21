@@ -1,10 +1,5 @@
 import { fileURLToPath } from "url";
-import { LogLevelType } from "../types/Logger.type";
-import { timeStamp } from "console";
-
-type LogProps = LogLevelType & {
-  message: any;
-};
+import { LogProps } from "../types/Logger.type";
 
 const filePath = fileURLToPath(import.meta.url);
 
