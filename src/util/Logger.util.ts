@@ -4,8 +4,7 @@ export class Logger {
   private static isDev = process.env.NODE_ENV === "development";
 
   private static getCallerInfo() {
-    const stack = new Error().stack; // 스택 추적
-    console.log("stack : ", stack);
+    const stack = new Error().stack;
     if (!stack) return null;
     const caller = stack.split("\n");
     const parserLineArr = caller[3].replace(/:\d+:\d+\)/, "").split("/");
@@ -22,19 +21,32 @@ export class Logger {
     };
   }
 
-  static log({ message, logLevel = "INFO" }: LogProps) {
-    if (!this.isDev) return;
+  private static logFormatting(message: any, method: "warn" | "error" | "log") {
     const timestamp = new Date().toISOString();
     const callerInfo = Logger.getCallerInfo();
 
-    if (logLevel === "INFO") {
-      console.log("==============================");
-      console.log("1. 파일 위치: ", callerInfo?.fileLocation);
-      console.log("------------------------------");
-      console.log("2. Message : ", message);
-      console.log("------------------------------");
-      console.log("3. TimeStamp : ", timestamp);
-      console.log("==============================");
+    console[method]("==============================");
+    console[method]("1. 파일 위치: ", callerInfo?.fileLocation);
+    console[method]("------------------------------");
+    console[method]("2. Message : ", message);
+    console[method]("------------------------------");
+    console[method]("3. TimeStamp : ", timestamp);
+    console[method]("==============================");
+  }
+
+  static log({ message, logLevel = "INFO" }: LogProps) {
+    if (!this.isDev) return;
+
+    switch (logLevel) {
+      case "WARN":
+        this.logFormatting(message, "warn");
+        break;
+      case "ERROR":
+        this.logFormatting(message, "error");
+        break;
+      case "INFO":
+        this.logFormatting(message, "log");
+        break;
     }
   }
 }
