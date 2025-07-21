@@ -1,0 +1,37 @@
+{
+  "name": "custom-logger",
+  "version": "1.0.0",
+  "description": "React/Next.js console logging package",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "react",
+    "nextjs",
+    "logging",
+    "console",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/react": "^18.2.45",
+    "rollup": "^4.9.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  }
+}
