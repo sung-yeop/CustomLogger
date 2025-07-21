@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Custom development logger utility for TypeScript/JavaScript projects",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
