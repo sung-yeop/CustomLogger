@@ -1,21 +1,41 @@
-import { fileURLToPath } from "url";
 import { LogProps } from "../types/Logger.type";
-
-const filePath = fileURLToPath(import.meta.url);
 
 export class Logger {
   private static isDev = process.env.NODE_ENV === "development";
+
+  private static getCallerInfo() {
+    const stack = new Error().stack; // 스택 추적
+    console.log("stack : ", stack);
+    if (!stack) return null;
+    const caller = stack.split("\n");
+    const parserLineArr = caller[3].replace(/:\d+:\d+\)/, "").split("/");
+    const fileLocation =
+      parserLineArr.length > 2
+        ? parserLineArr[parserLineArr.length - 2].concat(
+            "/",
+            parserLineArr[parserLineArr.length - 1]
+          )
+        : parserLineArr[parserLineArr.length - 1];
+
+    return {
+      fileLocation,
+    };
+  }
+
   static log({ message, logLevel }: LogProps) {
     const timestamp = new Date().toISOString();
+    const callerInfo = Logger.getCallerInfo();
+
     if (logLevel === "INFO") {
       console.log("==============================");
       console.log(
-        "파일 위치 : ",
-        filePath,
+        "파일 위치:",
+        callerInfo?.fileLocation,
         "\n",
-        "Message : ",
+        "Message:",
         message,
-        "TimeStamp : ",
+        "\n",
+        "TimeStamp:",
         timestamp
       );
     }
