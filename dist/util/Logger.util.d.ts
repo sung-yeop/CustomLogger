@@ -18,14 +18,14 @@ export declare class Logger {
     /**
      * Main logging method with level-based output
      * @param message - The message to log
-     * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
+     * @param logLevel - Log level (info, warn, debug, error), defaults to "info"
      */
     static log(message: any, logLevel?: LogLevelType): void;
     /**
      * Conditional logging method - only logs when condition is true
      * @param condition - Boolean condition to check before logging
      * @param message - The message to log if condition is true
-     * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
+     * @param logLevel - Log level (info, warn, debug, error), defaults to "info"
      */
     static when({ condition, message, logLevel }: ConditionalLogType): void;
 }

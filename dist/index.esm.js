@@ -57,14 +57,14 @@ class Logger {
     /**
      * Main logging method with level-based output
      * @param message - The message to log
-     * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
+     * @param logLevel - Log level (info, warn, debug, error), defaults to "info"
      */
     static log(message, logLevel = "info") {
         Logger.validateEnv();
         const timestamp = new Date().toLocaleTimeString();
         const callerInfo = Logger.getCallerInfo();
         console[logLevel]("==============================");
-        console[logLevel]("1. 파일 위치: ", callerInfo?.fileLocation);
+        console[logLevel]("1. 파일 위치 : ", callerInfo?.fileLocation);
         console[logLevel]("2. Message : ", message);
         console[logLevel]("3. 로깅 시각 : ", timestamp);
         console[logLevel]("==============================");
@@ -73,7 +73,7 @@ class Logger {
      * Conditional logging method - only logs when condition is true
      * @param condition - Boolean condition to check before logging
      * @param message - The message to log if condition is true
-     * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
+     * @param logLevel - Log level (info, warn, debug, error), defaults to "info"
      */
     static when({ condition, message, logLevel = "info" }) {
         Logger.validateEnv();
@@ -88,7 +88,7 @@ Logger.isDev = process.env.NODE_ENV === "development";
 /**
  * Custom hook to log component render count for debugging purposes
  * @param componentName - Name of the component being tracked
- * @param logLevel - Log level for the render count message, defaults to INFO
+ * @param logLevel - Log level (info, warn, debug, error), defaults to "info"
  */
 const useRenderCountLogger = (componentName, logLevel = "info") => {
     const countRef = useRef(0);
@@ -96,11 +96,9 @@ const useRenderCountLogger = (componentName, logLevel = "info") => {
         countRef.current++;
         const timestamp = new Date().toLocaleTimeString();
         console[logLevel]("==============================");
-        console[logLevel](`1. 컴포넌트 이름: ${componentName}`);
-        console[logLevel]("------------------------------");
-        console[logLevel](`2. 렌더링 횟수 - ${countRef.current}`);
-        console[logLevel]("------------------------------");
-        console[logLevel](`3. TimeStamp: ${timestamp}`);
+        console[logLevel](`1. 컴포넌트 이름 : ${componentName}`);
+        console[logLevel](`2. 렌더링 횟수 :  ${countRef.current}`);
+        console[logLevel](`3. TimeStamp : ${timestamp}`);
         console[logLevel]("==============================");
     });
 };

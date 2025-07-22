@@ -69,7 +69,7 @@ export class Logger {
   /**
    * Main logging method with level-based output
    * @param message - The message to log
-   * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
+   * @param logLevel - Log level (info, warn, debug, error), defaults to "info"
    */
   static log(message: any, logLevel: LogLevelType = "info") {
     Logger.validateEnv();
@@ -78,7 +78,7 @@ export class Logger {
     const callerInfo = Logger.getCallerInfo();
 
     console[logLevel]("==============================");
-    console[logLevel]("1. 파일 위치: ", callerInfo?.fileLocation);
+    console[logLevel]("1. 파일 위치 : ", callerInfo?.fileLocation);
     console[logLevel]("2. Message : ", message);
     console[logLevel]("3. 로깅 시각 : ", timestamp);
     console[logLevel]("==============================");
@@ -88,7 +88,7 @@ export class Logger {
    * Conditional logging method - only logs when condition is true
    * @param condition - Boolean condition to check before logging
    * @param message - The message to log if condition is true
-   * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
+   * @param logLevel - Log level (info, warn, debug, error), defaults to "info"
    */
   static when({ condition, message, logLevel = "info" }: ConditionalLogType) {
     Logger.validateEnv();

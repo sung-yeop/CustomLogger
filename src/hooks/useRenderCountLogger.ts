@@ -4,7 +4,7 @@ import { LogLevelType } from "../types/Logger.type";
 /**
  * Custom hook to log component render count for debugging purposes
  * @param componentName - Name of the component being tracked
- * @param logLevel - Log level for the render count message, defaults to INFO
+ * @param logLevel - Log level (info, warn, debug, error), defaults to "info"
  */
 export const useRenderCountLogger = (
   componentName: string,
@@ -17,11 +17,9 @@ export const useRenderCountLogger = (
     const timestamp = new Date().toLocaleTimeString();
 
     console[logLevel]("==============================");
-    console[logLevel](`1. 컴포넌트 이름: ${componentName}`);
-    console[logLevel]("------------------------------");
-    console[logLevel](`2. 렌더링 횟수 - ${countRef.current}`);
-    console[logLevel]("------------------------------");
-    console[logLevel](`3. TimeStamp: ${timestamp}`);
+    console[logLevel](`1. 컴포넌트 이름 : ${componentName}`);
+    console[logLevel](`2. 렌더링 횟수 :  ${countRef.current}`);
+    console[logLevel](`3. TimeStamp : ${timestamp}`);
     console[logLevel]("==============================");
   });
 };
