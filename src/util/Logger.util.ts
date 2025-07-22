@@ -29,7 +29,14 @@ export class Logger {
         !line.includes("webpack") &&
         !line.includes("cjs/") &&
         !line.includes("esm/") &&
-        line.includes("/")
+        !line.includes("react_devtools") &&
+        !line.includes("development.js") &&
+        !line.includes("react-refresh") &&
+        line.includes("/") &&
+        (line.includes(".tsx") ||
+          line.includes(".ts") ||
+          line.includes(".jsx") ||
+          line.includes(".js"))
       ) {
         targetCaller = caller[i];
         break;
