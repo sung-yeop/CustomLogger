@@ -1,4 +1,4 @@
-export type LogLevelType = "WARN" | "ERROR" | "INFO";
+export type LogLevelType = "warn" | "error" | "info" | "debug";
 export type ConditionalLogType = {
   condition: boolean;
   message: any;

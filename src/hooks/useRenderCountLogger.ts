@@ -9,12 +9,20 @@ import { Logger } from "../util/Logger.util";
  */
 export const useRenderCountLogger = (
   componentName: string,
-  logLevel: LogLevelType = "INFO"
+  logLevel: LogLevelType = "debug"
 ) => {
   const countRef = useRef<number>(0);
 
   useEffect(() => {
     countRef.current++;
-    Logger.log(`${componentName} 렌더링 횟수 - ${countRef.current}`, logLevel);
+    const timestamp = new Date().toISOString();
+
+    console[logLevel]("==============================");
+    console[logLevel](`1. 컴포넌트 이름: ${componentName}`);
+    console[logLevel]("------------------------------");
+    console[logLevel](`2. 렌더링 횟수 - ${countRef.current}`);
+    console[logLevel]("------------------------------");
+    console[logLevel](`3. TimeStamp: ${timestamp}`);
+    console[logLevel]("==============================");
   });
 };

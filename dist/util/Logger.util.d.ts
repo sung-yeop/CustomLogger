@@ -10,12 +10,6 @@ export declare class Logger {
      */
     private static getCallerInfo;
     /**
-     * Format and output log message with consistent styling
-     * @param message - The message to log
-     * @param method - Console method to use (warn, error, log)
-     */
-    private static logFormatting;
-    /**
      * Validates if logging is enabled based on environment
      * Only allows logging in development environment
      * @returns Early return if not in development mode

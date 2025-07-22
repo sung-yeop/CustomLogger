@@ -58,24 +58,6 @@ export class Logger {
   }
 
   /**
-   * Format and output log message with consistent styling
-   * @param message - The message to log
-   * @param method - Console method to use (warn, error, log)
-   */
-  private static logFormatting(message: any, method: "warn" | "error" | "log") {
-    const timestamp = new Date().toISOString();
-    const callerInfo = Logger.getCallerInfo();
-
-    console[method]("==============================");
-    console[method]("1. 파일 위치: ", callerInfo?.fileLocation);
-    console[method]("------------------------------");
-    console[method]("2. Message : ", message);
-    console[method]("------------------------------");
-    console[method]("3. TimeStamp : ", timestamp);
-    console[method]("==============================");
-  }
-
-  /**
    * Validates if logging is enabled based on environment
    * Only allows logging in development environment
    * @returns Early return if not in development mode
@@ -89,21 +71,19 @@ export class Logger {
    * @param message - The message to log
    * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
    */
-  static log(message: any, logLevel: LogLevelType = "INFO") {
+  static log(message: any, logLevel: LogLevelType = "debug") {
     Logger.validateEnv();
 
-    // Route to appropriate console method based on log level
-    switch (logLevel) {
-      case "WARN":
-        this.logFormatting(message, "warn");
-        break;
-      case "ERROR":
-        this.logFormatting(message, "error");
-        break;
-      case "INFO":
-        this.logFormatting(message, "log");
-        break;
-    }
+    const timestamp = new Date().toISOString();
+    const callerInfo = Logger.getCallerInfo();
+
+    console[logLevel]("==============================");
+    console[logLevel]("1. 파일 위치: ", callerInfo?.fileLocation);
+    console[logLevel]("------------------------------");
+    console[logLevel]("2. Message : ", message);
+    console[logLevel]("------------------------------");
+    console[logLevel]("3. TimeStamp : ", timestamp);
+    console[logLevel]("==============================");
   }
 
   /**
@@ -112,7 +92,7 @@ export class Logger {
    * @param message - The message to log if condition is true
    * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
    */
-  static when({ condition, message, logLevel = "INFO" }: ConditionalLogType) {
+  static when({ condition, message, logLevel = "debug" }: ConditionalLogType) {
     Logger.validateEnv();
     if (!condition) return;
     Logger.log(message, logLevel);
