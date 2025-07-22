@@ -20,7 +20,10 @@ class Logger {
         let targetCaller = caller[3];
         for (let i = 3; i < caller.length; i++) {
             if (!caller[i].includes("Logger.util") &&
-                !caller[i].includes("dist/index")) {
+                !caller[i].includes("dist/index") &&
+                !caller[i].includes("node_modules/react") &&
+                !caller[i].includes("react-dom") &&
+                !caller[i].includes("useRenderCountLogger")) {
                 targetCaller = caller[i];
                 break;
             }

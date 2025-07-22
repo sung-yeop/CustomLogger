@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { ConditionalLogType, LogLevelType } from "../types/Logger.type";
 
 /**
@@ -21,7 +20,10 @@ export class Logger {
     for (let i = 3; i < caller.length; i++) {
       if (
         !caller[i].includes("Logger.util") &&
-        !caller[i].includes("dist/index")
+        !caller[i].includes("dist/index") &&
+        !caller[i].includes("node_modules/react") &&
+        !caller[i].includes("react-dom") &&
+        !caller[i].includes("useRenderCountLogger")
       ) {
         targetCaller = caller[i];
         break;
