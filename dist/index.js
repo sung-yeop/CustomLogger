@@ -19,11 +19,17 @@ class Logger {
         const caller = stack.split("\n");
         let targetCaller = caller[3];
         for (let i = 3; i < caller.length; i++) {
-            if (!caller[i].includes("Logger.util") &&
-                !caller[i].includes("dist/index") &&
-                !caller[i].includes("node_modules/react") &&
-                !caller[i].includes("react-dom") &&
-                !caller[i].includes("useRenderCountLogger")) {
+            const line = caller[i];
+            if (!line.includes("Logger.util") &&
+                !line.includes("dist/index") &&
+                !line.includes("node_modules") &&
+                !line.includes("react-dom") &&
+                !line.includes("scheduler") &&
+                !line.includes("useRenderCountLogger") &&
+                !line.includes("webpack") &&
+                !line.includes("cjs/") &&
+                !line.includes("esm/") &&
+                line.includes("/")) {
                 targetCaller = caller[i];
                 break;
             }
