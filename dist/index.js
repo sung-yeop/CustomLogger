@@ -2,6 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var react = require('react');
+
 /**
  * Custom Logger utility class for development logging
  */
@@ -92,6 +94,20 @@ class Logger {
 // Only enable logging in development environment
 Logger.isDev = process.env.NODE_ENV === "development";
 
+/**
+ * Custom hook to log component render count for debugging purposes
+ * @param componentName - Name of the component being tracked
+ * @param logLevel - Log level for the render count message, defaults to INFO
+ */
+const useRenderCountLogger = (componentName, logLevel = "INFO") => {
+    const countRef = react.useRef(0);
+    react.useEffect(() => {
+        countRef.current++;
+        Logger.log(`${componentName} 렌더링 횟수 - ${countRef.current}`, logLevel);
+    });
+};
+
 exports.Logger = Logger;
 exports.default = Logger;
+exports.useRenderCountLogger = useRenderCountLogger;
 //# sourceMappingURL=index.js.map
