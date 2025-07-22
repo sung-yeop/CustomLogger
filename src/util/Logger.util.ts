@@ -71,18 +71,16 @@ export class Logger {
    * @param message - The message to log
    * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
    */
-  static log(message: any, logLevel: LogLevelType = "debug") {
+  static log(message: any, logLevel: LogLevelType = "info") {
     Logger.validateEnv();
 
-    const timestamp = new Date().toISOString();
+    const timestamp = new Date().toLocaleTimeString();
     const callerInfo = Logger.getCallerInfo();
 
     console[logLevel]("==============================");
     console[logLevel]("1. 파일 위치: ", callerInfo?.fileLocation);
-    console[logLevel]("------------------------------");
     console[logLevel]("2. Message : ", message);
-    console[logLevel]("------------------------------");
-    console[logLevel]("3. TimeStamp : ", timestamp);
+    console[logLevel]("3. 로깅 시각 : ", timestamp);
     console[logLevel]("==============================");
   }
 
@@ -92,7 +90,7 @@ export class Logger {
    * @param message - The message to log if condition is true
    * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
    */
-  static when({ condition, message, logLevel = "debug" }: ConditionalLogType) {
+  static when({ condition, message, logLevel = "info" }: ConditionalLogType) {
     Logger.validateEnv();
     if (!condition) return;
     Logger.log(message, logLevel);

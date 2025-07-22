@@ -59,16 +59,14 @@ class Logger {
      * @param message - The message to log
      * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
      */
-    static log(message, logLevel = "debug") {
+    static log(message, logLevel = "info") {
         Logger.validateEnv();
-        const timestamp = new Date().toISOString();
+        const timestamp = new Date().toLocaleTimeString();
         const callerInfo = Logger.getCallerInfo();
         console[logLevel]("==============================");
         console[logLevel]("1. 파일 위치: ", callerInfo?.fileLocation);
-        console[logLevel]("------------------------------");
         console[logLevel]("2. Message : ", message);
-        console[logLevel]("------------------------------");
-        console[logLevel]("3. TimeStamp : ", timestamp);
+        console[logLevel]("3. 로깅 시각 : ", timestamp);
         console[logLevel]("==============================");
     }
     /**
@@ -77,7 +75,7 @@ class Logger {
      * @param message - The message to log if condition is true
      * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
      */
-    static when({ condition, message, logLevel = "debug" }) {
+    static when({ condition, message, logLevel = "info" }) {
         Logger.validateEnv();
         if (!condition)
             return;
@@ -92,11 +90,11 @@ Logger.isDev = process.env.NODE_ENV === "development";
  * @param componentName - Name of the component being tracked
  * @param logLevel - Log level for the render count message, defaults to INFO
  */
-const useRenderCountLogger = (componentName, logLevel = "debug") => {
+const useRenderCountLogger = (componentName, logLevel = "info") => {
     const countRef = useRef(0);
     useEffect(() => {
         countRef.current++;
-        const timestamp = new Date().toISOString();
+        const timestamp = new Date().toLocaleTimeString();
         console[logLevel]("==============================");
         console[logLevel](`1. 컴포넌트 이름: ${componentName}`);
         console[logLevel]("------------------------------");

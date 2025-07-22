@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { LogLevelType } from "../types/Logger.type";
-import { Logger } from "../util/Logger.util";
 
 /**
  * Custom hook to log component render count for debugging purposes
@@ -9,13 +8,13 @@ import { Logger } from "../util/Logger.util";
  */
 export const useRenderCountLogger = (
   componentName: string,
-  logLevel: LogLevelType = "debug"
+  logLevel: LogLevelType = "info"
 ) => {
   const countRef = useRef<number>(0);
 
   useEffect(() => {
     countRef.current++;
-    const timestamp = new Date().toISOString();
+    const timestamp = new Date().toLocaleTimeString();
 
     console[logLevel]("==============================");
     console[logLevel](`1. 컴포넌트 이름: ${componentName}`);
