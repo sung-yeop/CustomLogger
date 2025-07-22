@@ -11,12 +11,11 @@ class Logger {
      * @returns Object containing file location or null if stack is unavailable
      */
     static getCallerInfo() {
-        const stack = new Error().stack; // Get stack trace
+        const stack = new Error().stack;
         if (!stack)
             return null;
         const caller = stack.split("\n");
-        // Find the first stack entry that's not from this logger
-        let targetCaller = caller[3]; // Default fallback
+        let targetCaller = caller[3];
         for (let i = 3; i < caller.length; i++) {
             if (!caller[i].includes("Logger.util") &&
                 !caller[i].includes("dist/index")) {
@@ -24,7 +23,6 @@ class Logger {
                 break;
             }
         }
-        // Remove line numbers and column info from stack trace
         const parserLineArr = targetCaller.replace(/:\d+:\d+\)/, "").split("/");
         const fileLocation = parserLineArr.length > 2
             ? parserLineArr[parserLineArr.length - 2].concat("/", parserLineArr[parserLineArr.length - 1])
@@ -50,14 +48,21 @@ class Logger {
         console[method]("==============================");
     }
     /**
+     * Validates if logging is enabled based on environment
+     * Only allows logging in development environment
+     * @returns Early return if not in development mode
+     */
+    static validateEnv() {
+        if (!this.isDev)
+            return;
+    }
+    /**
      * Main logging method with level-based output
      * @param message - The message to log
      * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
      */
     static log(message, logLevel = "INFO") {
-        // Skip logging in production environment
-        if (!this.isDev)
-            return;
+        Logger.validateEnv();
         // Route to appropriate console method based on log level
         switch (logLevel) {
             case "WARN":
@@ -70,6 +75,18 @@ class Logger {
                 this.logFormatting(message, "log");
                 break;
         }
+    }
+    /**
+     * Conditional logging method - only logs when condition is true
+     * @param condition - Boolean condition to check before logging
+     * @param message - The message to log if condition is true
+     * @param logLevel - Log level (INFO, WARN, ERROR), defaults to INFO
+     */
+    static when({ condition, message, logLevel = "INFO" }) {
+        Logger.validateEnv();
+        if (!condition)
+            return;
+        Logger.log(message, logLevel);
     }
 }
 // Only enable logging in development environment
